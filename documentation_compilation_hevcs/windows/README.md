@@ -55,7 +55,7 @@ containing this solution file. Please, modify these two macros to match your sys
 3. Open and compile "hevc\hm_16_15_switch\build\HM_vc2015.sln", as in (1) and (2).
 
 ## Useful links
-https://medium.com/@arnaldog12/how-to-build-tensorflow-on-windows-with-mt-42a8e4bea7e7
-https://joe-antognini.github.io/machine-learning/build-windows-tf
+  * https://medium.com/@arnaldog12/how-to-build-tensorflow-on-windows-with-mt-42a8e4bea7e7
+  * https://joe-antognini.github.io/machine-learning/build-windows-tf
 
 

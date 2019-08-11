@@ -1,0 +1,77 @@
+NOTE ON THE MODIFICATIONS OF THE CMAKE FILES FOR COMPILING STATIC TENSORFLOW LIBRARIES
+
+
+The modifications described below enable to compile static Tensorflow libraries
+instead of compiling default dynamic Tensorflow libraries.
+
+
+(1) In the file "tensorflow\tensorflow\contrib\cmake\CMakeLists.txt".
+    (1.a) Four flags are added. These four flags will be used in the sub CMake files.
+
+          set(FLAGS_DEBUG "/MTd /Zi /Ob0 /Od /RTC1")
+          set(FLAGS_MINSIZEREL "/MT /O1 /Ob1 /DNDEBUG")
+          set(FLAGS_RELEASE "/MT /O2 /Ob2 /DNDEBUG")
+          set(FLAGS_RELWITHDEBINFO "/MT /Zi /O2 /Ob1 /DNDEBUG")
+    
+    (1.b) Four flags (defined around line 186) are modified to convert dynamic linking into static linking.
+          
+          set(CMAKE_CXX_FLAGS_DEBUG "/D_DEBUG /MTd /Ob2")
+          set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT /D_ITERATOR_DEBUG_LEVEL=0")
+          set(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL} /MT /D_ITERATOR_DEBUG_LEVEL=0")
+          set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /MT /D_ITERATOR_DEBUG_LEVEL=0")
+
+(2) In the directory "tensorflow\tensorflow\contrib\cmake\external".
+    (2.a) In the file "cub.cmake", CMakeCache flags are added.
+          
+          CMAKE_CACHE_ARGS
+              -DCMAKE_BUILD_TYPE:STRING=Release
+              -DCMAKE_C_FLAGS_DEBUG:STRING=${FLAGS_DEBUG}
+              -DCMAKE_C_FLAGS_MINSIZEREL:STRING=${FLAGS_MINSIZEREL}
+              -DCMAKE_C_FLAGS_RELEASE:STRING=${FLAGS_RELEASE}
+              -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING=${FLAGS_RELWITHDEBINFO}
+              -DCMAKE_CXX_FLAGS_DEBUG:STRING=${FLAGS_DEBUG}
+              -DCMAKE_CXX_FLAGS_MINSIZEREL:STRING=${FLAGS_MINSIZEREL}
+              -DCMAKE_CXX_FLAGS_RELEASE:STRING=${FLAGS_RELEASE}
+              -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=${FLAGS_RELWITHDEBINFO}
+          
+          The same modifications apply to the file "gemmlowp.cmake".
+    
+    (2.b) In the file "eigen.cmake", flags are added to the existing CMakeCache flags.
+          
+          -DCMAKE_C_FLAGS_DEBUG:STRING=${FLAGS_DEBUG}
+          -DCMAKE_C_FLAGS_MINSIZEREL:STRING=${FLAGS_MINSIZEREL}
+          -DCMAKE_C_FLAGS_RELEASE:STRING=${FLAGS_RELEASE}
+          -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING=${FLAGS_RELWITHDEBINFO}
+          -DCMAKE_CXX_FLAGS_DEBUG:STRING=${FLAGS_DEBUG}
+          -DCMAKE_CXX_FLAGS_MINSIZEREL:STRING=${FLAGS_MINSIZEREL}
+          -DCMAKE_CXX_FLAGS_RELEASE:STRING=${FLAGS_RELEASE}
+          -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=${FLAGS_RELWITHDEBINFO}
+          
+          The same modifications apply to the files "double_conversion.cmake",
+          "farmhash.cmake", "fft2d.cmake", "gif.cmake", "grpc.cmake", "highwayhash.cmake",
+          "jpeg.cmake", "jsoncpp.cmake", "lmdb.cmake", "nsync.cmake", "snappy.cmake", and
+          "sqlite.cmake".
+    
+    (2.c) In the file "png.cmake", flags are added to the existing CMakeCache flags.
+    
+          -DCMAKE_C_FLAGS_DEBUG:STRING=${FLAGS_DEBUG}
+          -DCMAKE_C_FLAGS_MINSIZEREL:STRING=${FLAGS_MINSIZEREL}
+          -DCMAKE_C_FLAGS_RELEASE:STRING=${FLAGS_RELEASE}
+          -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING=${FLAGS_RELWITHDEBINFO}
+          
+          The same modifications apply to the file "zlib.cmake".
+    
+    (2.d) In the file "protobuf.cmake", the generated library is set to static.
+          
+          set(PROTOBUF_ADDITIONAL_CMAKE_OPTIONS	-Dprotobuf_MSVC_STATIC_RUNTIME:BOOL=ON
+          ...
+          -Dprotobuf_MSVC_STATIC_RUNTIME:BOOL=ON
+    
+    (2.e) In the file "re2.cmake", flags are added to the existing CMakeCache flags.
+    
+          -DCMAKE_CXX_FLAGS_DEBUG:STRING=${FLAGS_DEBUG}
+          -DCMAKE_CXX_FLAGS_MINSIZEREL:STRING=${FLAGS_MINSIZEREL}
+          -DCMAKE_CXX_FLAGS_RELEASE:STRING=${FLAGS_RELEASE}
+          -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=${FLAGS_RELWITHDEBINFO}
+
+

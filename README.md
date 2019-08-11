@@ -17,7 +17,7 @@ The code is tested on Linux and Windows.
   * six
 
 ## Cloning the code
-Clone this repository into the current folder.
+Clone this repository into the current directory.
 ```sh
 git clone https://github.com/thierrydumas/context_adaptive_neural_network_based_prediction.git
 cd context_adaptive_neural_network_based_prediction

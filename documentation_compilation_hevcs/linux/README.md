@@ -28,13 +28,12 @@ directory "hevc/hm_common/".
 
 1. Modify the macro in the file "hevc/hm_common/common.mk" if needed.
 2. Compile the two versions of HEVC including the neural networks via Makefiles.
-```sh
-cd hevc/hm_16_15_substitution/build/linux
-make
-cd ../../../
-cd hm_16_15_switch/build/linux
-make
-cd ../../../../
-```
+   ```sh
+   cd hevc/hm_16_15_substitution/build/linux
+   make
+   cd ../../../hm_16_15_switch/build/linux
+   make
+   cd ../../../../
+   ```
 
 

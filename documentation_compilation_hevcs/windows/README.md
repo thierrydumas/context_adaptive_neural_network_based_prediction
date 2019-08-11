@@ -1,19 +1,16 @@
 # Compilation of HEVC and two versions of HEVC including the neural networks on Windows
 
-## Prerequisites
-  * CMake
-  * Git
-
 ## Compiling HEVC
-Open the solution file "hevc\hm_16_15_regular\build\HM_vc2015.sln" using Visual Studio and build.
+Open the solution file "hevc\hm_16_15_regular\build\HM_vc2015.sln" using Visual Studio and compile.
 
 ## Compiling the two versions of HEVC including the neural networks by linking to static Tensorflow libraries
-In the versions of HEVC including the neural networks for intra prediction, the neural networks will
-be instantiated and run using C++ Tensorflow libraries. In HEVC, all libraries are static. That is why
-the Tensorflow libraries have to be static too.
+In the versions of HEVC including the neural networks for intra prediction, the neural
+networks will be instantiated and run using C++ Tensorflow libraries. In HEVC, all libraries
+are static. That is why the Tensorflow libraries have to be static too.
 
 Google recommends to compile Tensorflow from source via Bazel, see [BazelWebPage](https://bazel.build/).
-But, Bazel requires lot of RAM and dependencies. Alternatively, the compilation described below uses CMake.
+But, Bazel requires lot of RAM and dependencies. Alternatively, the compilation described
+below uses CMake.
 
 ### Compiling static Tensorflow libraries via CMake
 1. Get the Tensorflow repository. It is recommended to get Tensorflow 1.9.0, see
@@ -33,14 +30,13 @@ instead of dynamic libraries. To apply these modifications faster, you can also
 look at the directory "cmake_with_modifications_tensorflow_1.9.0". It contains
 the file "CMakeLists.txt" and the other CMake files with the required modifications
 in the case of Tensorflow 1.9.0.
-5. Run "run_static_library_cmake.bat" to create the Tensorflow Visual Studio projects and
-"run_static_library_build.bat" to compile static Tensorflow libraries.
-```sh
-cd ..\tensorflow-1.9.0
-run_static_library_cmake.bat
-run_static_library_build.bat
-cd ..\context_adaptive_neural_network_based_prediction
-```
+5. Run "run_static_library_cmake.bat" to create the Tensorflow Visual Studio projects and run "run_static_library_build.bat" to compile static Tensorflow libraries.
+   ```sh
+   cd ..\tensorflow-1.9.0
+   run_static_library_cmake.bat
+   run_static_library_build.bat
+   cd ..\context_adaptive_neural_network_based_prediction
+   ```
 
 ### Compiling the two versions of HEVC including the neural networks
 The two solution files for compilation use two macros defined in the property
@@ -57,7 +53,7 @@ Make sure that the configuration is "Release" and the platform is "x64".
 4. Open and compile "hevc\hm_16_15_switch\build\HM_vc2015.sln", as in (1) and (2).
 
 ## Useful links
-https://medium.com/@arnaldog12/how-to-build-tensorflow-on-windows-with-mt-42a8e4bea7e7
-https://joe-antognini.github.io/machine-learning/build-windows-tf
+  * https://medium.com/@arnaldog12/how-to-build-tensorflow-on-windows-with-mt-42a8e4bea7e7
+  * https://joe-antognini.github.io/machine-learning/build-windows-tf
 
 

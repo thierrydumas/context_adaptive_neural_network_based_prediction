@@ -50,7 +50,9 @@ if needed.
 2. Open the solution file "hevc\hm_16_15_substitution\build\HM_vc2015.sln" using Visual Studio.
 Make sure that the configuration is "Release" and the platform is "x64".
 3. Compile "hevc\hm_16_15_substitution\build\HM_vc2015.sln".
-4. Open and compile "hevc\hm_16_15_switch\build\HM_vc2015.sln", as in (1) and (2).
+4. Open the solution file "hevc\hm_16_15_switch\build\HM_vc2015.sln" using Visual Studio. Make
+sure that the configuration is "Release" and the platform is "x64".
+5. Compile "hevc\hm_16_15_switch\build\HM_vc2015.sln".
 
 ## Useful links
   * https://medium.com/@arnaldog12/how-to-build-tensorflow-on-windows-with-mt-42a8e4bea7e7

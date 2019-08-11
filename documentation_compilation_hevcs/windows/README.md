@@ -18,7 +18,7 @@ But, Bazel requires lot of RAM and dependencies. Alternatively, the compilation 
 
 ### Compiling static Tensorflow libraries via CMake
 1. Get the Tensorflow repository. It is recommended to get Tensorflow 1.9.0, see
-[TF-1.9.0WebPage](https://github.com/tensorflow/tensorflow/releases/tag/v1.9.), as
+[TF-1.9.0WebPage](https://github.com/tensorflow/tensorflow/releases/tag/v1.9.0), as
 the CMake support in this version is up-to-date and the protocol below was tested using
 Tensorflow 1.9.0. To avoid modifying paths later on when linking the built static
 Tensorflow libraries to HEVC executables, it is recommended to put the Tensorflow
@@ -36,14 +36,13 @@ instead of dynamic libraries. To apply these modifications faster, you can also
 look at the directory "cmake_with_modifications_tensorflow_1.9.0". It contains
 the file "CMakeLists.txt" and the other CMake files with the required modifications
 in the case of Tensorflow 1.9.0.
-6. Run "run_static_library_cmake.bat" to create the Tensorflow Visual Studio projects and
-"run_static_library_build.bat" to compile static Tensorflow libraries.
-```sh
-cd ..\tensorflow-1.9.0
-run_static_library_cmake.bat
-run_static_library_build.bat
-cd ..\context_adaptive_neural_network_based_prediction
-```
+6. Run "run_static_library_cmake.bat" to create the Tensorflow Visual Studio projects and "run_static_library_build.bat" to compile static Tensorflow libraries.
+   ```sh
+   cd ..\tensorflow-1.9.0
+   run_static_library_cmake.bat
+   run_static_library_build.bat
+   cd ..\context_adaptive_neural_network_based_prediction
+   ```
 
 ### Compiling the two versions of HEVC including the neural networks
 1. Open the solution file "hevc\hm_16_15_substitution\build\HM_vc2015.sln" using Visual Studio.

@@ -2,8 +2,9 @@
 setlocal
 set PROJECT_ROOT=%cd%
 
-REM `PATH_TO_SWIG_EXE` must be modified.
-set PATH_TO_SWIG_EXE=C:/path/to/swig.exe
+REM `PATH_TO_SWIG_EXE` must be set to the path to the
+REM SWIG executable in your system.
+set PATH_TO_SWIG_EXE=C:/bsolute/path/to/swig.exe
 
 REM The Tensorflow repository is updated.
 cd %PROJECT_ROOT%

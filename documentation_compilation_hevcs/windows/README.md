@@ -1,4 +1,4 @@
-# Compilation of HEVC/H.265 and two versions of HEVC/H.265 including the neural networks on Windows
+# Compilation of HEVC and two versions of HEVC including the neural networks on Windows
 
 ## Prerequisites
   * CMake
@@ -18,7 +18,7 @@ But, Bazel requires lot of RAM and dependencies. Alternatively, the compilation 
 
 ### Compiling static Tensorflow libraries via CMake
 1. Get the Tensorflow repository. It is recommended to get Tensorflow 1.9.0, see
-[TF-1.9.0WebPage](https://github.com/tensorflow/tensorflow/releases/tag/v1.9.0), as
+[TF-1.9.0WebPage](https://github.com/tensorflow/tensorflow/releases/tag/v1.9.), as
 the CMake support in this version is up-to-date and the protocol below was tested using
 Tensorflow 1.9.0. To avoid modifying paths later on when linking the built static
 Tensorflow libraries to HEVC executables, it is recommended to put the Tensorflow
@@ -36,26 +36,31 @@ instead of dynamic libraries. To apply these modifications faster, you can also
 look at the directory "cmake_with_modifications_tensorflow_1.9.0". It contains
 the file "CMakeLists.txt" and the other CMake files with the required modifications
 in the case of Tensorflow 1.9.0.
-6. Run "run_static_library_cmake.bat" to create the Tensorflow Visual Studio projects and "run_static_library_build.bat" to compile static Tensorflow libraries.
-   ```sh
-   cd ..\tensorflow-1.9.0
-   run_static_library_cmake.bat
-   run_static_library_build.bat
-   cd ..\context_adaptive_neural_network_based_prediction
-   ```
+6. Run "run_static_library_cmake.bat" to create the Tensorflow Visual Studio projects and
+"run_static_library_build.bat" to compile static Tensorflow libraries.
+```sh
+cd ..\tensorflow-1.9.0
+run_static_library_cmake.bat
+run_static_library_build.bat
+cd ..\context_adaptive_neural_network_based_prediction
+```
 
 ### Compiling the two versions of HEVC including the neural networks
-1. Open the solution file "hevc\hm_16_15_substitution\build\HM_vc2015.sln" using Visual Studio.
-Make sure that the configuration is "Release" and the platform is "x64". This solution uses two
-macros defined in the property sheet "hevc\hm_common\properties_substitution_switch.props".
-The first macro is the absolute path to the directory containing "python.exe" in your system.
-The second macro is the path to the root of the Tensorflow repository, relatively to the directory
-containing this solution file. Please, modify these two macros to match your system.
-2. Compile "hevc\hm_16_15_substitution\build\HM_vc2015.sln".
-3. Open and compile "hevc\hm_16_15_switch\build\HM_vc2015.sln", as in (1) and (2).
+The two solution files for compilation use two macros defined in the property
+sheet "hevc\hm_common\properties_substitution_switch.props". The first macro
+is the absolute path to the directory containing "python.exe". The second macro
+is the path to the root of the Tensorflow repository, relatively to the solution
+file directory.
+
+1. Modify the two macros in the property sheet "hevc\hm_common\properties_substitution_switch.props"
+if needed.
+2. Open the solution file "hevc\hm_16_15_substitution\build\HM_vc2015.sln" using Visual Studio.
+Make sure that the configuration is "Release" and the platform is "x64".
+3. Compile "hevc\hm_16_15_substitution\build\HM_vc2015.sln".
+4. Open and compile "hevc\hm_16_15_switch\build\HM_vc2015.sln", as in (1) and (2).
 
 ## Useful links
-  * https://medium.com/@arnaldog12/how-to-build-tensorflow-on-windows-with-mt-42a8e4bea7e7
-  * https://joe-antognini.github.io/machine-learning/build-windows-tf
+https://medium.com/@arnaldog12/how-to-build-tensorflow-on-windows-with-mt-42a8e4bea7e7
+https://joe-antognini.github.io/machine-learning/build-windows-tf
 
 

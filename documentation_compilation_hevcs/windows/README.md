@@ -14,7 +14,7 @@ below uses CMake.
 
 ### Compiling static Tensorflow libraries via CMake
 1. Get the Tensorflow repository. It is recommended to get Tensorflow 1.9.0, see
-[TF-1.9.0WebPage](https://github.com/tensorflow/tensorflow/releases/tag/v1.9.), as
+[TF-1.9.0WebPage](https://github.com/tensorflow/tensorflow/releases/tag/v1.9.0), as
 the CMake support in this version is up-to-date and the protocol below was tested using
 Tensorflow 1.9.0. To avoid modifying paths later on when linking the built static
 Tensorflow libraries to HEVC executables, it is recommended to put the Tensorflow

@@ -2,10 +2,6 @@
 setlocal
 set PROJECT_ROOT=%cd%
 
-REM `PATH_TO_SWIG_EXE` must be set to the path to the
-REM SWIG executable in your system.
-set PATH_TO_SWIG_EXE=C:/bsolute/path/to/swig.exe
-
 REM The Tensorflow repository is updated.
 cd %PROJECT_ROOT%
 git submodule update --init
@@ -32,7 +28,6 @@ REM "%PROJECT_ROOT%\tensorflow\contrib\cmake\CMakeLists.txt",
 REM `tensorflow_BUILD_CC_TESTS` is set to OFF by default.
 cmake .. -A x64 ^
 -DCMAKE_BUILD_TYPE=Release ^
--DSWIG_EXECUTABLE=%PATH_TO_SWIG_EXE% ^
 -Dtensorflow_BUILD_PYTHON_BINDINGS=OFF ^
 -Dtensorflow_BUILD_CC_EXAMPLE=OFF ^
 -Dtensorflow_DISABLE_EIGEN_FORCEINLINE=ON ^

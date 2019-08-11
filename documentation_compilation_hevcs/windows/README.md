@@ -3,7 +3,6 @@
 ## Prerequisites
   * CMake
   * Git
-  * Swig
 
 ## Compiling HEVC
 Open the solution file "hevc\hm_16_15_regular\build\HM_vc2015.sln" using Visual Studio and build.
@@ -28,15 +27,13 @@ named "context_adaptive_neural_network_based_prediction".
 named "msbuild.exe" are in your %PATH%.
 3. Put the files "run_static_library_cmake.bat" and "run_static_library_build.bat"
 into the root directory of the Tensorflow repository.
-4. At line 4 of "run_static_library_cmake.bat", set `PATH_TO_SWIG_EXE` to the path
-to the SWIG executable in your system.
-5. Follow the instructions in the file "note_modifications_cmake.txt" to change
+4. Follow the instructions in the file "note_modifications_cmake.txt" to change
 the Tensorflow CMake files such that static Tensorflow libraries will be built
 instead of dynamic libraries. To apply these modifications faster, you can also
 look at the directory "cmake_with_modifications_tensorflow_1.9.0". It contains
 the file "CMakeLists.txt" and the other CMake files with the required modifications
 in the case of Tensorflow 1.9.0.
-6. Run "run_static_library_cmake.bat" to create the Tensorflow Visual Studio projects and
+5. Run "run_static_library_cmake.bat" to create the Tensorflow Visual Studio projects and
 "run_static_library_build.bat" to compile static Tensorflow libraries.
 ```sh
 cd ..\tensorflow-1.9.0

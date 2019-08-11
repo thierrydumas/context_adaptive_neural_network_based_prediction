@@ -1,0 +1,10 @@
+Gerald Wallace
+Scottie Pippen DeMarcus Cousins beacon_0 2 beacon_1 8 9 10 11
+Michael Redd
+beacon_0 1 beacon_1 4 5 6 7
+Donovan Mitchell
+Ben Simmons
+Vince Carter beacon_00 beacon_1 0 1 2 3
+Damian Lillard beacon_03beacon_1 0 -1 -2 -3
+
+

@@ -1,0 +1,7 @@
+4,0,0,pnn/graphs_frozen/width_target_4/fully_connected/single/luminance/1_0/masks_tr_random/graph_output.pbtxt
+8,0,0,pnn/graphs_frozen/width_target_8/fully_connected/single/luminance/1_0/masks_tr_random/graph_output.pbtxt
+16,0,0,pnn/graphs_frozen/width_target_16/convolutional/single/luminance/1_0/masks_tr_random/graph_output.pbtxt
+32,0,0,pnn/graphs_frozen/width_target_32/convolutional/single/luminance/1_0/masks_tr_random/graph_output.pbtxt
+64,0,0,pnn/graphs_frozen/width_target_64/convolutional/single/luminance/1_0/masks_tr_random/graph_output.pbtxt
+
+

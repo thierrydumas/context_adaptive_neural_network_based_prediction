@@ -1,0 +1,9 @@
+Brandom Ingram Joel Embiid beacon_0 2 beacon_1 8 9 10 11
+__bea_0 1 10 10 1 end
+_____00bea_0 3 3 3 3 finish
+beacon_0 0 beacon_1 0 1 2 3
+Lebron James beacon_03beacon_1 0 -1 -2 -3
+George Hill beacon_01beacon_1 4 5 6 7
+   -   bea_0 -1 -10 -10 -1 stop
+
+

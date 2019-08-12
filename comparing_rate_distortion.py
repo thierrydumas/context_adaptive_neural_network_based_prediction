@@ -559,5 +559,6 @@ if __name__ == '__main__':
                                 tuple_tags,
                                 path_to_directory_temp,
                                 path_to_directory_vis)
+    print('The results are stored in the directory at \"{}\".'.format(path_to_directory_vis))
 
 

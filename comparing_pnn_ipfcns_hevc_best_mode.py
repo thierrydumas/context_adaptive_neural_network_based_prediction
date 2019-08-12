@@ -689,7 +689,7 @@ if __name__ == '__main__':
                 str_description = 'fully-connected'
             else:
                 str_description = 'convolutional'
-            print('The comparison for the width of target patch {0} and the {1} architecture is done.'.format(pair_width_target_is_fc[0], str_description))
+            print('The comparison for the width of target patch {0} and the \"{1}\" architecture is done.'.format(pair_width_target_is_fc[0], str_description))
     else:
         
         # The unused channels are not kept in RAM.

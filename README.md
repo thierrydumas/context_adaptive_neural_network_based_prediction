@@ -50,8 +50,8 @@ cd ../../
 3. Reproducing the results in Tables I, II, III, IV, and V. Note that the pretrained models of the
    neural networks for predicting blocks of size 4x4, 8x8, 16x16, and 32x32 are provided in the
    code. However, the pretrained models of the neural networks for predicting blocks of size 64x64
-   are not given as their size is too large, which prevents from pushing them remotely. Please, write
-   to dumas--thierry@hotmail.fr to get the missing pretrained models or retrain them.
+   are not given as their size is too large, which prevents from pushing them remotely. Please, either
+   write to dumas--thierry@hotmail.fr to get the missing pretrained models or retrain them.
    ```sh
    python comparing_pnn_ipfcns_hevc_best_mode.py --all
    ```
@@ -65,9 +65,9 @@ cd ../../
 	 ./run_freezing_all_graphs.sh
 	 ```
 5. Reproducing the results in Tables IX and X. Below, `/path/to/directory/data` is the path
-   to the directory storing the YUV sequence to be encoded and decoded via  HEVC/H.265. `prefix`
-   is the prefix of the name of this YUV sequence, e.g. "D_BasketballPass", "B_Kimono" or
-   "C_BasketballDrill".
+   to the directory storing the YUV sequence to be encoded and decoded via  HEVC/H.265 and two
+   variants of HEVC/H.265 using the neural networks for intra predicton. `prefix` is the prefix of
+   the name of this YUV sequence, e.g. "D_BasketballPass", "B_Kimono", "C_BasketballDrill" or "Bus".
    ```sh
    python comparing_rate_distortion.py ycbcr --path_to_directory_data=/path/to/directory/data --prefix_filename=prefix
    ```

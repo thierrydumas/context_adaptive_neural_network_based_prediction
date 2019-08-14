@@ -56,13 +56,8 @@ cd ../../
    python comparing_pnn_ipfcns_hevc_best_mode.py --all
    ```
 4. Freezing the graphs and the parameters of the neural networks to use them inside HEVC/H.265 in (5).
-   * In Windows,
      ```sh
-	 run_freezing_all_graphs.bat
-	 ```
-   * In Linux,
-     ```sh
-	 ./run_freezing_all_graphs.sh
+	 python freezing_graph_pnn.py --all
 	 ```
 5. Reproducing the results in Tables IX and X. Below, `/path/to/directory/data` is the path
    to the directory storing the YUV sequence to be encoded and decoded via  HEVC/H.265 and two

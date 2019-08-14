@@ -9,61 +9,66 @@ import parsing.parsing
 import tools.tools as tls
 import pnn.PredictionNeuralNetwork
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Freezes the graph of PNN.')
-    parser.add_argument('width_target',
-                        help='width of the target patch',
-                        type=parsing.parsing.int_strictly_positive)
-    parser.add_argument('index_channel',
-                        help='channel index',
-                        type=parsing.parsing.int_positive)
-    parser.add_argument('coeff_l2_norm_pred_error',
-                        help='coefficient that scales the l2-norm prediction error w.r.t the gradient error and the l2-norm weight decay',
-                        type=parsing.parsing.float_positive)
-    parser.add_argument('coeff_grad_error',
-                        help='coefficient that scales the gradient error w.r.t the l2-norm prediction error and the l2-norm weight decay',
-                        type=parsing.parsing.float_positive)
-    parser.add_argument('tuple_width_height_masks_tr',
-                        help='width of the "above" mask and height of the "left" mask separated by a comma (training phase)',
-                        type=parsing.parsing.tuple_two_positive_integers)
-    parser.add_argument('--is_fully_connected',
-                        help='is PNN fully-connected?',
-                        action='store_true',
-                        default=False)
-    parser.add_argument('--is_pair',
-                        help='if given, the contexts in the training set for training PNN contain HEVC compression artifacts',
-                        action='store_true',
-                        default=False)
-    args = parser.parse_args()
+def freeze_graph_pnn(width_target, index_channel, coeff_l2_norm_pred_error, coeff_grad_error,
+                     tuple_width_height_masks_tr, is_fully_connected, is_pair):
+    """Freezes the graph of PNN by packaging the graph of PNN and its parameters.
     
-    if args.is_fully_connected:
+    Parameters
+    ----------
+    width_target : int
+        Width of the target patch.
+    index_channel : int
+        Channel index.
+    coeff_l2_norm_pred_error : float
+        Coefficient that scales the l2-norm prediction error w.r.t the
+        gradient error and the l2-norm weight decay.
+    coeff_grad_error : float
+        Coefficient that scales the gradient error w.r.t the l2-norm
+        prediction error and the l2-norm weight decay.
+    tuple_width_height_masks_tr : tuple
+        Width of the "above" mask and height of the "left" mask used
+        during the training phase, separated by a comma. If this tuple
+        is empty, the PNN model was trained via random masking.
+    is_fully_connected : bool
+        Is PNN fully-connected?
+    is_pair : bool
+        Do the contexts in the training sets for training the different PNNs
+        contain HEVC compression artifacts?
+    
+    Raises
+    ------
+    ValueError
+        If `index_channel` does not belong to {0, 1, 2}.
+    
+    """
+    if is_fully_connected:
         tag_arch = 'fully_connected'
     else:
         tag_arch = 'convolutional'
-    if args.is_pair:
+    if is_pair:
         tag_pair = 'pair'
     else:
         tag_pair = 'single'
-    if args.index_channel == 0:
+    if index_channel == 0:
         tag_channel = 'luminance'
-    elif args.index_channel == 1:
+    elif index_channel == 1:
         tag_channel = 'chrominance_blue'
-    elif args.index_channel == 2:
+    elif index_channel == 2:
         tag_channel = 'chrominance_red'
     else:
-        raise ValueError('`args.index_channel` does not belong to {0, 1, 2}.')
-    tag_coeffs = '{0}_{1}'.format(tls.float_to_str(args.coeff_l2_norm_pred_error),
-                                  tls.float_to_str(args.coeff_grad_error))
-    if args.tuple_width_height_masks_tr:
-        tag_masks_tr = 'masks_tr_{0}_{1}'.format(args.tuple_width_height_masks_tr[0],
-                                                 args.tuple_width_height_masks_tr[1])
+        raise ValueError('`index_channel` does not belong to {0, 1, 2}.')
+    tag_coeffs = '{0}_{1}'.format(tls.float_to_str(coeff_l2_norm_pred_error),
+                                  tls.float_to_str(coeff_grad_error))
+    if tuple_width_height_masks_tr:
+        tag_masks_tr = 'masks_tr_{0}_{1}'.format(tuple_width_height_masks_tr[0],
+                                                 tuple_width_height_masks_tr[1])
     else:
         tag_masks_tr = 'masks_tr_random'
     
     # `suffix_paths` enables to integrate the characteristics
     # of PNN into the path to the directory containing the PNN
     # model and the path to the directory storing its frozen graph.
-    suffix_paths = os.path.join('width_target_{}'.format(args.width_target),
+    suffix_paths = os.path.join('width_target_{}'.format(width_target),
                                 tag_arch,
                                 tag_pair,
                                 tag_channel,
@@ -93,8 +98,8 @@ if __name__ == '__main__':
         # of the graph dedicated to the optimization of the parameters
         # of PNN.
         predictor = pnn.PredictionNeuralNetwork.PredictionNeuralNetwork(1,
-                                                                        args.width_target,
-                                                                        args.is_fully_connected)
+                                                                        width_target,
+                                                                        is_fully_connected)
         if predictor.is_fully_connected:
             name_node_output = 'fully_connected/node_output'
         else:
@@ -116,7 +121,7 @@ if __name__ == '__main__':
                                             'graph_output.pbtxt')
         
         # If a file exists at `path_to_graph_output`, it may contain
-        # an outdated freezed graph. That is why the outdated freezed
+        # an outdated frozen graph. That is why the outdated frozen
         # graph is suppressed.
         if os.path.isfile(path_to_graph_input):
             os.remove(path_to_graph_input)
@@ -136,7 +141,90 @@ if __name__ == '__main__':
                      path_to_graph_output,
                      False,
                      '')
+        
+        # The current graph is erased.
+        tf.reset_default_graph()
     else:
         print('There is no PNN model in the directory at "{}".'.format(path_to_directory_load_save))
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Freezes the graph of PNN.')
+    parser.add_argument('--width_target',
+                        help='width of the target patch',
+                        type=parsing.parsing.int_strictly_positive,
+                        default=None)
+    parser.add_argument('--index_channel',
+                        help='channel index',
+                        type=parsing.parsing.int_positive,
+                        default=None)
+    parser.add_argument('--coeff_l2_norm_pred_error',
+                        help='coefficient that scales the l2-norm prediction error w.r.t the gradient error and the l2-norm weight decay',
+                        type=parsing.parsing.float_positive,
+                        default=None)
+    parser.add_argument('--coeff_grad_error',
+                        help='coefficient that scales the gradient error w.r.t the l2-norm prediction error and the l2-norm weight decay',
+                        type=parsing.parsing.float_positive,
+                        default=None)
+    parser.add_argument('--tuple_width_height_masks_tr',
+                        help='width of the "above" mask and height of the "left" mask separated by a comma (training phase)',
+                        type=parsing.parsing.tuple_two_positive_integers,
+                        default=None)
+    parser.add_argument('--is_fully_connected',
+                        help='is PNN fully-connected?',
+                        action='store_true',
+                        default=False)
+    parser.add_argument('--is_pair',
+                        help='if given, the contexts in the training set for training PNN contain HEVC compression artifacts',
+                        action='store_true',
+                        default=False)
+    parser.add_argument('--all',
+                        help='if given, all other arguments are ignored and a group of PNN graphs are frozen',
+                        action='store_true',
+                        default=False)
+    args = parser.parse_args()
+    
+    if not args.all:
+        is_error = args.width_target is None \
+                   or args.index_channel is None \
+                   or args.coeff_l2_norm_pred_error is None \
+                   or args.coeff_grad_error is None \
+                   or args.tuple_width_height_masks_tr is None
+        if is_error:
+            raise ValueError('If `all` is not given, `width_target`, `index_channel`, `coeff_l2_norm_pred_error`, `coeff_grad_error`, and `tuple_width_height_masks_tr` have to be specified.')
+    
+    if args.all:
+        tuple_pairs_width_target_is_fc = (
+            (4, True),
+            (8, True),
+            (16, False),
+            (32, False),
+            (64, False)
+        )
+        
+        # If `is_pair` is True, PNN was trained on contexts
+        # with HEVC compression artifacts.
+        for is_pair in (True, False):
+            for pair_width_target_is_fc in tuple_pairs_width_target_is_fc:
+                
+                # The fifth argument of `freeze_graph_pnn` is an empty
+                # tuple to indicate that the PNN models were trained
+                # via random masking.
+                freeze_graph_pnn(pair_width_target_is_fc[0],
+                                 0,
+                                 1.,
+                                 0.,
+                                 (),
+                                 pair_width_target_is_fc[1],
+                                 is_pair)
+    else:
+        freeze_graph_pnn(args.width_target,
+                         args.index_channel,
+                         args.coeff_l2_norm_pred_error,
+                         args.coeff_grad_error,
+                         args.tuple_width_height_masks_tr,
+                         args.is_fully_connected,
+                         args.is_pair)
+    
+    
 
 

@@ -295,16 +295,16 @@ class TesterSets(object):
         else:
             tag_channel = 'chrominance_red'
         
-        path_to_directory_tfrecord = os.path.join('sets/pseudo_data/create_tfrecord/',
-                                                  'width_target_{}'.format(width_target),
-                                                  tag_pair,
-                                                  tag_channel)
+        path_to_directory_tfrecords = os.path.join('sets/pseudo_data/create_tfrecord/',
+                                                   'width_target_{}'.format(width_target),
+                                                   tag_pair,
+                                                   tag_channel)
         
         # The directory containing the file ".tfrecord" is
         # created if it does not exist.
-        if not os.path.isdir(path_to_directory_tfrecord):
-            os.makedirs(path_to_directory_tfrecord)
-        path_to_tfrecord = os.path.join(path_to_directory_tfrecord,
+        if not os.path.isdir(path_to_directory_tfrecords):
+            os.makedirs(path_to_directory_tfrecords)
+        path_to_tfrecord = os.path.join(path_to_directory_tfrecords,
                                         'data.tfrecord')
         sets.writing.create_tfrecord(path_to_tfrecord,
                                      paths_to_rgbs,
@@ -511,15 +511,13 @@ class TesterSets(object):
                                                  'width_target_{}'.format(width_target),
                                                  tag_pair,
                                                  tag_channel)
-        if not os.path.isdir(path_to_directory_threads):
-            os.makedirs(path_to_directory_threads)
         paths_to_directories_tfrecords = []
         for i in range(nb_threads):
-            path_to_directory_tfrecord = os.path.join(path_to_directory_threads,
-                                                      'thread_{}'.format(i))
-            if not os.path.isdir(path_to_directory_tfrecord):
-                os.mkdir(path_to_directory_tfrecord)
-            paths_to_directories_tfrecords.append(path_to_directory_tfrecord)
+            path_to_directory_tfrecords = os.path.join(path_to_directory_threads,
+                                                       'thread_{}'.format(i))
+            if not os.path.isdir(path_to_directory_tfrecords):
+                os.makedirs(path_to_directory_tfrecords)
+            paths_to_directories_tfrecords.append(path_to_directory_tfrecords)
         sets.writing.create_tfrecord_threading(paths_to_directories_tfrecords,
                                                paths_to_rgbs,
                                                width_target,
@@ -1428,11 +1426,11 @@ class TesterSets(object):
         else:
             tag_pair = 'single'
             channel_single_or_pair_uint8 = channel_uint8
-        path_to_directory_tfrecord = os.path.join('sets/pseudo_data/write_channel_single_or_pair/',
-                                                  tag_pair)
-        if not os.path.isdir(path_to_directory_tfrecord):
-            os.makedirs(path_to_directory_tfrecord)
-        path_to_tfrecord = os.path.join(path_to_directory_tfrecord,
+        path_to_directory_tfrecords = os.path.join('sets/pseudo_data/write_channel_single_or_pair/',
+                                                   tag_pair)
+        if not os.path.isdir(path_to_directory_tfrecords):
+            os.makedirs(path_to_directory_tfrecords)
+        path_to_tfrecord = os.path.join(path_to_directory_tfrecords,
                                         'data.tfrecord')
         with tf.python_io.TFRecordWriter(path_to_tfrecord) as file:
             sets.writing.write_channel_single_or_pair(channel_single_or_pair_uint8,

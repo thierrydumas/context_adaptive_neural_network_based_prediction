@@ -705,6 +705,6 @@ if __name__ == '__main__':
                                  args.is_pair,
                                  args.is_compared_ipfcns,
                                  batch_size)
-    print('The results are stored in the directory at "pnn/visualization/checking_predictions/" inside Pickle binary files.')
+    print('The results are stored in dictionaries saved in Pickle files in the directory at "pnn/visualization/checking_predictions/".')
 
 

@@ -55,16 +55,40 @@ cd context_adaptive_neural_network_based_prediction
    ```sh
    python comparing_pnn_ipfcns_hevc_best_mode.py --all
    ```
-4. Freezing the graphs and the parameters of the neural networks to use them inside HEVC/H.265 in (5).
+4. Freezing the graphs and the parameters of the neural networks to use them inside HEVC/H.265 in Step 5.
    ```sh
    python freezing_graph_pnn.py --all
    ```
 5. Reproducing the results in Tables IX and X. Below, `/path/to/dir_data` is the path
    to the directory storing the YUV sequence to be encoded and decoded via  HEVC/H.265 and two
    variants of HEVC/H.265 using the neural networks for intra predicton. `prefix` is the prefix of
-   the name of this YUV sequence, e.g. "D_BasketballPass", "B_Kimono", "C_BasketballDrill" or "Bus".
+   the name of this YUV sequence, e.g. "D_BasketballPass", "B_Kimono", "C_BasketballDrill" (CTC),
+   "Bus" or "City" (xiph.org), see [XiphWebPage](https://media.xiph.org/video/derf/).
    ```sh
    python comparing_rate_distortion.py ycbcr --path_to_directory_data=/path/to/dir_data --prefix_filename=prefix
    ```
+   After running Step 5, the Bjontegaard's metrics in Tables IX and X and rate-distortion curves
+   are stored in the directory at "hevc/visualization/rate_distortion/".
+
+## Quick start: training a neural network
+1. Untaring the ILSVRC2012 training images. First of all, the ILSVRC2012 training images, "ILSVRC2012_img_train.tar"
+   (137 GB), must be downloaded, see [ImageNetDownloadWebPage](http://image-net.org/download). Let's say that, in
+   your computer, the path to "ILSVRC2012_img_train.tar" is "path/to/dir_0/ILSVRC2012_img_train.tar" and you want the
+   unpacked images to be put into the directory at "path/to/dir_1",
+   ```sh
+   python untaring_ilsvrc2012_training.py path/to/dir_1 path/to/dir_0/ILSVRC2012_img_train.tar sets/synsets/synsets.txt
+   ```
+2. Creating a training set for intra prediction. Let's say that you want to create a training set of pairs
+   (luminance context, luminance 8x8 block to be predicted) and save it in the directory at "path/to/dir_2",
+   ```sh
+   python creating_training_set.py path/to/dir_1 path/to/dir_2 8 0
+   ```
+3. Training a neural network for intra prediction. As the training set of pairs (luminance context, luminance 8x8 block
+   to be predicted) is ready, it is possible to train a neural network for predicting 8x8 luminance blocks from their
+   context,
+   ```sh
+   python training_pnn.py path/to/dir_2 8 0 1.0 0.0 , 0 --is_fully_connected
+   ```
+   Please, see the complete documentation of `training_pnn.py` to understand its arguments.
 
 

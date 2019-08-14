@@ -1,6 +1,7 @@
 # Compilation of HEVC and two versions of HEVC including the neural networks on Linux
 
 ## Compiling HEVC
+For details on the compilation of HEVC, see [HEVCSoftwareWebPage](https://hevc.hhi.fraunhofer.de/).
 ```sh
 cd hevc/hm_16_15_regular/build/linux
 make

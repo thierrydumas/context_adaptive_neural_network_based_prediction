@@ -2,6 +2,7 @@
 
 ## Compiling HEVC
 Open the solution file "hevc\hm_16_15_regular\build\HM_vc2015.sln" using Visual Studio and compile.
+For details on the compilation of HEVC, see [HEVCSoftwareWebPage](https://hevc.hhi.fraunhofer.de/).
 
 ## Compiling the two versions of HEVC including the neural networks by linking to static Tensorflow libraries
 In the versions of HEVC including the neural networks for intra prediction, the neural

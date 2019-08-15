@@ -91,4 +91,14 @@ cd context_adaptive_neural_network_based_prediction
    ```
    Please, see the complete documentation of `training_pnn.py` to understand its arguments.
 
+## Citing
+```sh
+@article{context_adaptive_neural2019,
+  author = {Dumas, Thierry and Roumy, Aline and Guillemot, Christine},
+  title = {Context-adaptive neural network based prediction for image compression},
+  journal = {arXiv preprint arXiv:1807.06244},
+  year = {2019}
+}
+```
+
 

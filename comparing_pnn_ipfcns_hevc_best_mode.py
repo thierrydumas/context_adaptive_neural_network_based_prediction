@@ -123,7 +123,7 @@ def predict_mask(channels_uint8, width_target, row_1sts, col_1sts, batch_size, m
         tuple is the height of the mask that covers
         the bottom of the context portion located
         on the left side of the target patch. The
-        two masks are used during the validation phase.
+        two masks are used during the test phase.
     sess : Session
         Session that runs the graph of PNN.
     predictor : PredictionNeuralNetwork
@@ -166,7 +166,8 @@ def predict_mask(channels_uint8, width_target, row_1sts, col_1sts, batch_size, m
                                                                     predictor,
                                                                     batch_size)
     
-    # The batch of target patches is the last element of `tuple_batches_float32`.
+    # The batch of target patches is the last element
+    # of `tuple_batches_float32`.
     targets_float32 = tuple_batches_float32[-1]
     
     # `mean_training` was subtracted from the target
@@ -187,9 +188,18 @@ def predict_mask(channels_uint8, width_target, row_1sts, col_1sts, batch_size, m
         compute_performance_neural_network_vs_hevc_best_mode(targets_uint8,
                                                              predictions_pnn_uint8,
                                                              dictionary_performance['psnrs_hevc_best_mode'])
+    
+    # The mean prediction PSNR is useful to see the
+    # influence of the masking on the quality of prediction.
+    dictionary_performance['mean_psnr_pnn'] = numpy.mean(dictionary_performance['psnrs_pnn']).item()
+    
+    # The histogram shows the distribution of differences between
+    # the prediction PSNR for PNN and the prediction PSNR for the
+    # best HEVC intra prediction mode in terms of prediction PSNR.
     tls.histogram(dictionary_performance['psnrs_pnn'] - dictionary_performance['psnrs_hevc_best_mode'],
                   'Difference in PSNRs',
                   os.path.join(path_to_directory_vis, 'difference_psnrs_pnn_hevc_best_mode.png'))
+    
     if predictor.is_fully_connected:
         coefficient_enlargement = 4
     else:
@@ -220,7 +230,7 @@ def predict_mask(channels_uint8, width_target, row_1sts, col_1sts, batch_size, m
                        coefficient_enlargement=coefficient_enlargement)
     
     # IPFCN-S is used only if there is no masking during
-    # the validation phase.
+    # the test phase.
     if net_ipfcns is not None and tuple_width_height_masks_val == (0, 0):
         predict_without_mask_via_ipfcns(channels_uint8,
                                         width_target,
@@ -285,7 +295,7 @@ def predict_masks(channels_uint8, width_target, row_1sts, col_1sts, batch_size, 
         is the height of the mask that covers the bottom
         of the context portion located on the left side
         of the target patch. The two masks are used during
-        the validation phase.
+        the test phase.
     sess : Session
         Session that runs the graph of PNN.
     predictor : PredictionNeuralNetwork
@@ -316,7 +326,7 @@ def predict_masks(channels_uint8, width_target, row_1sts, col_1sts, batch_size, 
         # patch and the height of the mask that covers the
         # bottom of the context portion located on the left
         # side of the target patch are not necessarily the
-        # same during the training and validation phases.
+        # same during the training and test phases.
         if tuple_width_height_masks_tr:
             tag_masks_tr = 'masks_tr_{0}_{1}'.format(tuple_width_height_masks_tr[0],
                                                      tuple_width_height_masks_tr[1])
@@ -465,7 +475,10 @@ def predict_masks_kodak_bsds(channels_kodak_uint8, channels_bsds_uint8, width_ta
     # `tuple_limits` prevents the context for PNN and
     # the reference lines for IPFCN-S from going out of
     # the bounds of the image channel.
-    tuple_limits = (max(0, 8 - width_target), 3*width_target)
+    tuple_limits = (
+        max(0, 8 - width_target),
+        3*width_target
+    )
     row_1sts_kodak = numpy.random.randint(tuple_limits[0],
                                           high=channels_kodak_uint8.shape[1] - tuple_limits[1] + 1,
                                           size=40)
@@ -593,9 +606,15 @@ def predict_without_mask_via_ipfcns(channels_uint8, width_target, row_1sts, col_
         compute_performance_neural_network_vs_hevc_best_mode(targets_uint8,
                                                              predictions_ipfcns_uint8,
                                                              dictionary_performance['psnrs_hevc_best_mode'])
+    dictionary_performance['mean_psnr_ipfcns'] = numpy.mean(dictionary_performance['psnrs_ipfcns']).item()
+    
+    # The histogram below shows the distribution of differences between
+    # the prediction PSNR for IPFCN-S and the prediction PSNR for the
+    # best HEVC intra prediction mode in terms of prediction PSNR.
     tls.histogram(dictionary_performance['psnrs_ipfcns'] - dictionary_performance['psnrs_hevc_best_mode'],
                   'Difference in PSNRs',
                   os.path.join(path_to_directory_vis, 'difference_psnrs_ipfcns_hevc_best_mode.png'))
+    
     for i in range(20):
         ipfcns.ipfcns.visualize_flattened_pair_groups_lines(flattened_pairs_groups_lines_float32[i, :],
                                                             width_target,

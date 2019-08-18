@@ -58,7 +58,7 @@ PNNS when the PNNS context is not available.
 When `CONTEXT_FLAG_PNNS` is 1, the PNNS flag has a context
 model.
 */
-#define CONTEXT_FLAG_PNNS                                 0
+#define CONTEXT_FLAG_PNNS                                 1
 
 // ====================================================================================================================
 // Debugging

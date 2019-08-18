@@ -76,7 +76,7 @@ cd context_adaptive_neural_network_based_prediction
    your computer, the path to "ILSVRC2012_img_train.tar" is "path/to/dir_0/ILSVRC2012_img_train.tar" and you want the
    unpacked images to be put into the directory at "path/to/dir_1",
    ```sh
-   python untaring_ilsvrc2012_training.py path/to/dir_1 path/to/dir_0/ILSVRC2012_img_train.tar sets/synsets/synsets.txt
+   python untaring_ilsvrc2012_training.py path/to/dir_1 path/to/dir_0/ILSVRC2012_img_train.tar
    ```
 2. Creating a training set for intra prediction. Let's say that you want to create a training set of pairs
    (luminance context, luminance 8x8 block to be predicted) and save it in the directory at "path/to/dir_2",

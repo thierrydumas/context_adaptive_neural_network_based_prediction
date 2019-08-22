@@ -68,12 +68,12 @@ cd context_adaptive_neural_network_based_prediction
    python comparing_rate_distortion.py ycbcr --path_to_directory_data=/path/to/dir_data --prefix_filename=prefix
    ```
    
-   After running Step 3, the mean prediction PSNRs and the success rate of the neural
-   network for intra prediction in Tables I, II, III, IV, and V are stored in CSV files
-   in the directory at "pnn/visualization/checking_predictions/".
-   
-   After running Step 5, the Bjontegaard's metrics in Tables IX and X and rate-distortion curves
-   are stored in the directory at "hevc/visualization/rate_distortion/".
+After running Step 3, the mean prediction PSNRs and the success rate of the neural
+network for intra prediction in Tables I, II, III, IV, and V are stored in CSV files
+in the directory at "pnn/visualization/checking_predictions/".
+
+After running Step 5, the Bjontegaard's metrics in Tables IX and X and rate-distortion curves
+are stored in the directory at "hevc/visualization/rate_distortion/".
 
 ## Quick start: training a neural network
 1. Untaring the ILSVRC2012 training images. First of all, the ILSVRC2012 training images, "ILSVRC2012_img_train.tar"

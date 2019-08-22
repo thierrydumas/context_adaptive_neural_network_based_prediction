@@ -68,7 +68,7 @@ cd context_adaptive_neural_network_based_prediction
    python comparing_rate_distortion.py ycbcr --path_to_directory_data=/path/to/dir_data --prefix_filename=prefix
    ```
    
-After running Step 3, the mean prediction PSNRs and the success rate of the neural
+After running Step 3, the mean prediction PSNRs and the success rates of the neural
 network for intra prediction in Tables I, II, III, IV, and V are stored in CSV files
 in the directory at "pnn/visualization/checking_predictions/".
 

@@ -17,6 +17,7 @@ and Caffe share a GPU, which is not possible.
 """
 
 import argparse
+import csv
 import numpy
 import os
 import pickle
@@ -30,6 +31,8 @@ import pnn.PredictionNeuralNetwork
 import pnn.visualization
 import sets.common
 import tools.tools as tls
+
+DELIMITER_CSV = ';'
 
 def compute_performance_neural_network_vs_hevc_best_mode(targets_uint8, predictions_nn_uint8, psnrs_hevc_best_mode):
     """Compute the performance of the neural network predictor versus the best HEVC intra prediction mode in terms of prediction PSNR.
@@ -81,6 +84,72 @@ def compute_performance_neural_network_vs_hevc_best_mode(targets_uint8, predicti
                                        squeezed_prediction_nn_uint8)
     frequency_win_nn = float(numpy.count_nonzero(psnrs_nn - psnrs_hevc_best_mode > 0.))/nb_targets
     return (psnrs_nn, frequency_win_nn)
+
+def load_dictionary_append_performances(list_mean_psnrs, list_frequencies, path_to_dictionary_performance):
+    """Loads a dictionary of performances, extracts a mean prediction PSNR and a frequency of win from it, and appends them to list.
+    
+    Parameters
+    ----------
+    list_mean_psnrs : list
+        Each string in `list_mean_psnrs` contains a mean prediction PSNR.
+        `load_dictionary_append_performances` MODIFIES `list_mean_psnrs`.
+    list_frequencies : list
+        Each string in `list_frequencies` contains a frequency of win
+        of PNN. `load_dictionary_append_performances` MODIFIES `list_frequencies`.
+    path_to_dictionary_performance : str
+        Path to the dictionary of performances to be loaded.
+        The path ends with ".pkl".
+    
+    """
+    with open(path_to_dictionary_performance, 'rb') as file:
+        dictionary_performance = pickle.load(file)
+    
+    # The mean prediction PSNRs are rounded to two decimal numbers whereas
+    # the frequencies of win of PNN are rounded to three decimal numbers.
+    list_mean_psnrs.append(str(round(dictionary_performance['mean_psnr_pnn'], 2)))
+    list_frequencies.append(str(round(dictionary_performance['frequency_win_pnn'], 3)))
+
+def open_csv_write_performances_masks(tuples_width_height_masks_tr, tuples_width_height_masks_val, path_to_directory_coeffs_vis):
+    """Opens two files ".csv" and writes the performances of PNN to them for different masks during the training and test phases.
+    
+    Parameters
+    ----------
+    tuples_width_height_masks_tr : tuple
+        Each tuple in this tuple contains two integers.
+        The 1st integer is the width of the mask that
+        covers the right side of the context portion
+        located above the target patch. The 2nd integer
+        is the height of the mask that covers the bottom
+        of the context portion located on the left side
+        of the target patch. The two masks are used during
+        the training phase.
+    tuples_width_height_masks_val : tuple
+        Each tuple in this tuple contains two integers.
+        The 1st integer is the width of the mask that
+        covers the right side of the context portion
+        located above the target patch. The 2nd integer
+        is the height of the mask that covers the bottom
+        of the context portion located on the left side
+        of the target patch. The two masks are used during
+        the test phase.
+    path_to_directory_coeffs_vis : str
+        Path to the directory in which the two files ".csv"
+        are saved.
+    
+    """
+    with open(os.path.join(path_to_directory_coeffs_vis, 'mean_psnrs.csv'), 'w') as file_mean_psnrs:
+        writer_mean_psnrs = csv.writer(file_mean_psnrs,
+                                       delimiter=DELIMITER_CSV,
+                                       quoting=csv.QUOTE_MINIMAL)
+        with open(os.path.join(path_to_directory_coeffs_vis, 'frequencies.csv'), 'w') as file_frequencies:
+            writer_frequencies = csv.writer(file_frequencies,
+                                            delimiter=DELIMITER_CSV,
+                                            quoting=csv.QUOTE_MINIMAL)
+            write_performances_masks(tuples_width_height_masks_tr,
+                                     tuples_width_height_masks_val,
+                                     path_to_directory_coeffs_vis,
+                                     writer_mean_psnrs,
+                                     writer_frequencies)
 
 def predict_mask(channels_uint8, width_target, row_1sts, col_1sts, batch_size, mean_training,
                  tuple_width_height_masks_val, sess, predictor, net_ipfcns, path_to_directory_vis):
@@ -422,11 +491,11 @@ def predict_masks_kodak_bsds(channels_kodak_uint8, channels_bsds_uint8, width_ta
     # is called.
     numpy.random.seed(seed=0)
     tuples_width_height_masks_tr = (
-        (),
         (0, 0),
         (0, width_target),
         (width_target, 0),
-        (width_target, width_target)
+        (width_target, width_target),
+        ()
     )
     tuples_width_height_masks_val = (
         (0, 0),
@@ -543,6 +612,15 @@ def predict_masks_kodak_bsds(channels_kodak_uint8, channels_bsds_uint8, width_ta
     
     # The PNN graph is erased.
     tf.reset_default_graph()
+    
+    # The dictionaries of performances are loaded and
+    # their content are written to files ".csv".
+    open_csv_write_performances_masks(tuples_width_height_masks_tr,
+                                      tuples_width_height_masks_val,
+                                      path_to_directory_coeffs_vis_kodak)
+    open_csv_write_performances_masks(tuples_width_height_masks_tr,
+                                      tuples_width_height_masks_val,
+                                      path_to_directory_coeffs_vis_bsds)
 
 def predict_without_mask_via_ipfcns(channels_uint8, width_target, row_1sts, col_1sts, batch_size, net_ipfcns,
                                     dictionary_performance, coefficient_enlargement, path_to_directory_vis):
@@ -624,6 +702,111 @@ def predict_without_mask_via_ipfcns(channels_uint8, width_target, row_1sts, col_
         tls.save_image(os.path.join(path_to_directory_vis, 'prediction_ipfcns_{}.png'.format(i)),
                        numpy.squeeze(predictions_ipfcns_uint8[i, :, :, :], axis=2),
                        coefficient_enlargement=coefficient_enlargement)
+
+def write_header_csv(tuples_width_height_masks_tr, writer_mean_psnrs, writer_frequencies):
+    """Writes the header of the two files ".csv".
+    
+    Parameters
+    ----------
+    tuples_width_height_masks_tr : tuple
+        Each tuple in this tuple contains two integers.
+        The 1st integer is the width of the mask that
+        covers the right side of the context portion
+        located above the target patch. The 2nd integer
+        is the height of the mask that covers the bottom
+        of the context portion located on the left side
+        of the target patch. The two masks are used during
+        the training phase.
+    writer_mean_psnrs : _csv.writer
+        Writer for writing to the file ".csv" storing the
+        mean prediction PSNRs for PNN.
+    writer_frequencies : _csv.writer
+        Writer for writing to the file ".csv" storing the
+        frequencies of win of PNN.
+    
+    """
+    # The first column of each file ".csv" contains the
+    # description of the masks during the test phase.
+    list_mean_psnrs = ['']
+    list_frequencies = ['']
+    for tuple_width_height_masks_tr in tuples_width_height_masks_tr:
+        list_mean_psnrs.append(str(tuple_width_height_masks_tr))
+        list_frequencies.append(str(tuple_width_height_masks_tr))
+    writer_mean_psnrs.writerow(list_mean_psnrs)
+    writer_frequencies.writerow(list_frequencies)
+
+def write_performances_masks(tuples_width_height_masks_tr, tuples_width_height_masks_val,
+                             path_to_directory_coeffs_vis, writer_mean_psnrs, writer_frequencies):
+    """Writes to two files ".csv" the performances of PNN to them for different masks during the training and test phases.
+    
+    Parameters
+    ----------
+    tuples_width_height_masks_tr : tuple
+        Each tuple in this tuple contains two integers.
+        The 1st integer is the width of the mask that
+        covers the right side of the context portion
+        located above the target patch. The 2nd integer
+        is the height of the mask that covers the bottom
+        of the context portion located on the left side
+        of the target patch. The two masks are used during
+        the training phase.
+    tuples_width_height_masks_val : tuple
+        Each tuple in this tuple contains two integers.
+        The 1st integer is the width of the mask that
+        covers the right side of the context portion
+        located above the target patch. The 2nd integer
+        is the height of the mask that covers the bottom
+        of the context portion located on the left side
+        of the target patch. The two masks are used during
+        the test phase.
+    path_to_directory_coeffs_vis : str
+        Path to the directory in which the files ".csv"
+        are saved.
+    writer_mean_psnrs : _csv.writer
+        Writer for writing to the file ".csv" storing the
+        mean prediction PSNRs for PNN.
+    writer_frequencies : _csv.writer
+        Writer for writing to the file ".csv" storing the
+        frequencies of win of PNN.
+    
+    """
+    write_header_csv(tuples_width_height_masks_tr,
+                     writer_mean_psnrs,
+                     writer_frequencies)
+    
+    # For a training mask, the dictionaries associated
+    # to the different validation masks were written to
+    # files ".pkl". Now, for a validation mask, the dictionaries
+    # associated to the different training masks are
+    # loaded.
+    for tuple_width_height_masks_val in tuples_width_height_masks_val:
+        tag_masks_val = 'masks_val_{0}_{1}'.format(tuple_width_height_masks_val[0],
+                                                   tuple_width_height_masks_val[1])
+        
+        # Each row of a file ".csv" is dedicated to a different
+        # validation mask.
+        list_mean_psnrs = [str(tuple_width_height_masks_val)]
+        list_frequencies = [str(tuple_width_height_masks_val)]
+        for tuple_width_height_masks_tr in tuples_width_height_masks_tr:
+            if tuple_width_height_masks_tr:
+                tag_masks_tr = 'masks_tr_{0}_{1}'.format(tuple_width_height_masks_tr[0],
+                                                         tuple_width_height_masks_tr[1])
+            else:
+                tag_masks_tr = 'masks_tr_random'
+            path_to_directory_vis = os.path.join(path_to_directory_coeffs_vis,
+                                                 tag_masks_tr,
+                                                 tag_masks_val)
+            path_to_dictionary_performance = os.path.join(path_to_directory_vis,
+                                                          'dictionary_performance.pkl')
+            
+            # The mean prediction PSNR for PNN is appended to `list_mean_psnrs` as
+            # string and the frequency of win of PNN is appended to `list_frequencies`
+            # as string.
+            load_dictionary_append_performances(list_mean_psnrs,
+                                                list_frequencies,
+                                                path_to_dictionary_performance)
+        writer_mean_psnrs.writerow(list_mean_psnrs)
+        writer_frequencies.writerow(list_frequencies)
 
 if __name__ == '__main__':
     description = 'Compares the predictions provided by PNN, the predictions provided by IPFCN-S ' \
@@ -724,6 +907,6 @@ if __name__ == '__main__':
                                  args.is_pair,
                                  args.is_compared_ipfcns,
                                  batch_size)
-    print('The results are stored in dictionaries saved in Pickle files in the directory at "pnn/visualization/checking_predictions/".')
+    print('The results are stored in CSV files in the directory at "pnn/visualization/checking_predictions/".')
 
 

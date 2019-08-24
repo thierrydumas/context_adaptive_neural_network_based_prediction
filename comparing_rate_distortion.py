@@ -1,6 +1,6 @@
 """A script to compare HEVC with the substitution and HEVC with the switch in terms of rate-distortion.
 
-The first argument of this script is `type_data`, the type
+The 1st argument of this script is `type_data`, the type
 of data used to compare HEVC with the substitution and HEVC
 with the switch in terms of rate-distortion. `type_data` can
 take four values.
@@ -13,16 +13,13 @@ take four values.
              the luminance images in the Kodak test set.
     "gray": a grayscale image is loaded. The comparison is done on this
             grayscale image.
-The second argument of this script is `path_to_directory_data`, the path
+The 2nd argument of this script is `path_to_directory_data`, the path
 to the directory containing either the file ".yuv", the RGB image or the
 grayscale image.
-The third argument of this script is `prefix_filename`, the prefix of the
+The 3rd argument of this script is `prefix_filename`, the prefix of the
 name of either the file ".yuv", the RGB image or the grayscale image.
 
-Note that the only case where the comparison is not done on
-luminance is when `type_data` is equal to "gray".
-
-Note also that, if `type_data` is equal to either "ycbcr", "rgb" or "gray",
+Note that, if `type_data` is equal to either "ycbcr", "rgb" or "gray",
 `path_to_directory_data` and `prefix_filename` have to be provided.
 
 """

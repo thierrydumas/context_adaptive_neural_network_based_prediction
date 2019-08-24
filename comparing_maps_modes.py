@@ -1,6 +1,6 @@
 """A script to compare the maps of intra prediction modes of HEVC, those of HEVC with the substitution, and those of HEVC with the switch.
 
-The first argument of this script is `type_data`, the type
+The 1st argument of this script is `type_data`, the type
 of data used to compare the maps of intra prediction modes
 of HEVC, those of HEVC with the substitution, and those of
 HEVC with the switch. `type_data` can take two values.
@@ -9,9 +9,9 @@ HEVC with the switch. `type_data` can take two values.
              done on this luminance channel.
     "rgb": a RGB image is loaded and converted into luminance. The comparison
            is done on this luminance image.
-The second argument of this script is `path_to_directory_data`, the path
+The 2nd argument of this script is `path_to_directory_data`, the path
 to the directory containing either the file ".yuv" or the RGB image.
-The third argument of this script is `prefix_filename`, the prefix of the
+The 3rd argument of this script is `prefix_filename`, the prefix of the
 name of either the file ".yuv" or the RGB image.
 
 """

@@ -1,8 +1,15 @@
 """A script to create a training set.
 
+The 1st argument of this script is `path_to_directory_extraction`,
+the path to the directory to which "ILSVRC2012_img_train.tar" was extracted.
 The 2nd argument of this script is `path_to_directory_training_sets`,
-the path to the directory storing the different training sets. To order
-the different training sets, the following directory tree is created:
+the path to the directory storing the different training sets.
+The 3rd argument of this script is `width_target`, the width of target
+patch, None indicating that there is no extraction of target patches,
+each paired with its two context portions.
+The 4th argument of this script is `index_channel`, the channel index.
+
+To order the different training sets, the following directory tree is created:
 
 path_to_directory_training_sets/*/**/***/****/
 

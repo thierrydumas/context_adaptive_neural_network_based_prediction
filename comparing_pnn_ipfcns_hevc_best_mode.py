@@ -11,8 +11,10 @@ called IPFCN-S, is more complex but provides predictions of higher accuracy.
 The 2nd version, called IPFCN-S-L, is less complex but gives predictions of
 lower accuracy. Here, IPFCN-S is used for comparison.
 
-Caffe has to be built in CPU-only mode. Otherwise, Tensorflow
-and Caffe share a GPU, which is not possible.
+To include IPFCN-S in the comparison:
+    (i) install Caffe and its Python extension
+    (ii) add the path to directory containing this extension to your `PYTHONPATH`
+    (iii) run `comparing_pnn_ipfcns_hevc_best_mode` with `--is_compared_ipfcns`.
 
 """
 

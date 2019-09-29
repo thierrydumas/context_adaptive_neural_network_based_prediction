@@ -103,13 +103,17 @@ def load_dictionary_append_performances(list_mean_psnrs, list_frequencies, path_
         The path ends with ".pkl".
     
     """
-    with open(path_to_dictionary_performance, 'rb') as file:
-        dictionary_performance = pickle.load(file)
-    
-    # The mean prediction PSNRs are rounded to two decimal numbers whereas
-    # the frequencies of win of PNN are rounded to three decimal numbers.
-    list_mean_psnrs.append(str(round(dictionary_performance['mean_psnr_pnn'], 2)))
-    list_frequencies.append(str(round(dictionary_performance['frequency_win_pnn'], 3)))
+    if os.path.isfile(path_to_dictionary_performance):
+        with open(path_to_dictionary_performance, 'rb') as file:
+            dictionary_performance = pickle.load(file)
+        
+        # The mean prediction PSNRs are rounded to two decimal numbers whereas
+        # the frequencies of win of PNN are rounded to three decimal numbers.
+        list_mean_psnrs.append(str(round(dictionary_performance['mean_psnr_pnn'], 2)))
+        list_frequencies.append(str(round(dictionary_performance['frequency_win_pnn'], 3)))
+    else:
+        list_mean_psnrs.append('None')
+        list_frequencies.append('None')
 
 def open_csv_write_performances_masks(tuples_width_height_masks_tr, tuples_width_height_masks_val, path_to_directory_coeffs_vis):
     """Opens two files ".csv" and writes the performances of PNN to them for different masks during the training and test phases.
@@ -139,6 +143,8 @@ def open_csv_write_performances_masks(tuples_width_height_masks_tr, tuples_width
         are saved.
     
     """
+    if not os.path.isdir(path_to_directory_coeffs_vis):
+        os.makedirs(path_to_directory_coeffs_vis)
     with open(os.path.join(path_to_directory_coeffs_vis, 'mean_psnrs.csv'), 'w') as file_mean_psnrs:
         writer_mean_psnrs = csv.writer(file_mean_psnrs,
                                        delimiter=DELIMITER_CSV,

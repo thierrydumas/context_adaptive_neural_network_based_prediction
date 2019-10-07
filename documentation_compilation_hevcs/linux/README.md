@@ -17,10 +17,17 @@ Google recommends to compile Tensorflow from source via Bazel, see [BazelWebPage
 But, Bazel requires lot of RAM and dependencies. Alternatively, the compilation described below uses Make.
 
 ### Compiling a static Tensorflow library
-Simply follow the instructions provided by the Tensorflow Makefile contribution, see
-[MakefileContributionWebPage](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/makefile).
-Then, the directory "tensorflow/contrib/makefile/gen/lib" (the path being given from the root directory
-of the Tensorflow repository) should contain the static Tensorflow library "libtensorflow-core.a".
+1. Get the Tensorflow repository. It is recommended to get Tensorflow 1.9.0, see
+[TF-1.9.0WebPage](https://github.com/tensorflow/tensorflow/releases/tag/v1.9.0), as
+the Make support in this version is stable and the protocol below was tested using
+Tensorflow 1.9.0. To avoid modifying paths later on when linking the built static
+Tensorflow libraries to HEVC executables, it is recommended to put the Tensorflow
+repository into the directory containing the root directory of the current project
+named "context_adaptive_neural_network_based_prediction".
+2. Follow the instructions given by "tensorflow/contrib/make/README.md", the file
+path being relative to the root directory of the Tensorflow repository. Then, the
+directory "tensorflow/contrib/makefile/gen/lib"  should contain the static Tensorflow
+library "libtensorflow-core.a".
 
 ### Compiling the two versions of HEVC including the neural networks
 The Makefiles for compilation use a macro defined in the file "hevc/hm_common/common.mk".

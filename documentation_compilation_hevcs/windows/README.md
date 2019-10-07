@@ -1,7 +1,10 @@
 # Compilation of HEVC and two versions of HEVC including the neural networks on Windows
 
 ## Compiling HEVC
-Open the solution file "hevc\hm_16_15_regular\build\HM_vc2015.sln" using Visual Studio and compile.
+1. Open the solution file "hevc\hm_16_15_regular\build\HM_vc2015.sln" using Visual Studio.
+2. Make sure that the configuration is "Release" and the platform is "x64".
+3. Compile "hevc\hm_16_15_regular\build\HM_vc2015.sln".
+
 For details on the compilation of HEVC, see [HEVCSoftwareWebPage](https://hevc.hhi.fraunhofer.de/).
 
 ## Compiling the two versions of HEVC including the neural networks by linking to static Tensorflow libraries
@@ -46,14 +49,13 @@ is the absolute path to the directory containing "python.exe". The second macro
 is the path to the root of the Tensorflow repository, relatively to the solution
 file directory.
 
-1. Modify the two macros in the property sheet "hevc\hm_common\properties_substitution_switch.props"
-if needed.
+1. Modify the two macros in the property sheet "hevc\hm_common\properties_substitution_switch.props" if needed.
 2. Open the solution file "hevc\hm_16_15_substitution\build\HM_vc2015.sln" using Visual Studio.
-Make sure that the configuration is "Release" and the platform is "x64".
-3. Compile "hevc\hm_16_15_substitution\build\HM_vc2015.sln".
-4. Open the solution file "hevc\hm_16_15_switch\build\HM_vc2015.sln" using Visual Studio. Make
-sure that the configuration is "Release" and the platform is "x64".
-5. Compile "hevc\hm_16_15_switch\build\HM_vc2015.sln".
+3. Make sure that the configuration is "Release" and the platform is "x64".
+4. Compile "hevc\hm_16_15_substitution\build\HM_vc2015.sln".
+5. Open the solution file "hevc\hm_16_15_switch\build\HM_vc2015.sln" using Visual Studio.
+6. Make sure that the configuration is "Release" and the platform is "x64".
+7. Compile "hevc\hm_16_15_switch\build\HM_vc2015.sln".
 
 ## Useful links
   * https://medium.com/@arnaldog12/how-to-build-tensorflow-on-windows-with-mt-42a8e4bea7e7

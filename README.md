@@ -110,15 +110,15 @@ python comparing_maps_modes.py ycbcr path/to/dir_data prefix
 ```
 <figure>
     <figure style="display: inline-block; margin: 0; vertical-align: middle;">
-        <img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" style="width=33%;" />
+        <img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" style="width: 33%;" />
         <figcaption>(a)</figcaption>
     </figure>
-    <figure style="display: inline-block; margin: 0; vertical-align: middle; width=33%;">
-        <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" style="width=33%;" />
+    <figure style="display: inline-block; margin: 0; vertical-align: middle;">
+        <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" style="width: 33%;" />
         <figcaption>(b)</figcaption>
     </figure>
-    <figure style="display: inline-block; margin: 0; vertical-align: middle; width=33%;">
-        <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" style="width=33%;" />
+    <figure style="display: inline-block; margin: 0; vertical-align: middle;">
+        <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" style="width: 33%;" />
         <figcaption>(c)</figcaption>
     </figure>
     <figcaption>Maps of intra prediction modes: (a) luminance channel of the first frame of Kimono (1920x1080), (b)

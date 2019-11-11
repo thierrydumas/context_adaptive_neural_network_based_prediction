@@ -111,16 +111,16 @@ python comparing_maps_modes.py ycbcr path/to/dir_data prefix
 <table>
     <tbody>
         <tr>
-            <td><img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" width="33%" /></td>
-            <td><img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" width="33%" /></td>
-            <td><img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" width="33%" /></td>
+            <td><img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" /></td>
+            <td><img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" /></td>
+            <td><img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" /></td>
         </tr>
     </tbody>
-    <tfoot>
+    <tfoot text-align="center">
         <tr>
             <td>Luminance image of the first frame of Kimono</td>
             <td>Map modes of HEVC</td>
-            <td>Map modes of HEVC including the neural networks</td>
+            <td>Map modes of the second variant of HEVC with the neural networks</td>
         </tr>
     </tfoot>
 </table>

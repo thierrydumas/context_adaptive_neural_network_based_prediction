@@ -108,23 +108,15 @@ prefix of the name of this YUV sequence, e.g. "D_BasketballPass".
 ```sh
 python comparing_maps_modes.py ycbcr path/to/dir_data prefix
 ```
-<figure>
-    <figure style="display: inline-block; margin: 0; vertical-align: middle;">
-        <img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" style="width: 33%;" />
-        <figcaption>(a)</figcaption>
-    </figure>
-    <figure style="display: inline-block; margin: 0; vertical-align: middle;">
-        <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" style="width: 33%;" />
-        <figcaption>(b)</figcaption>
-    </figure>
-    <figure style="display: inline-block; margin: 0; vertical-align: middle;">
-        <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" style="width: 33%;" />
-        <figcaption>(c)</figcaption>
-    </figure>
-    <figcaption>Maps of intra prediction modes: (a) luminance channel of the first frame of Kimono (1920x1080), (b)
-    map of intra prediction modes of HEVC, and (c) map of intra prediction modes of the second variant of HEVC including
-    the neural networks.</figcaption>
-</figure>
+
+For instance, when "prefix" is "B_Kimono", the directory at hevc/visualization/map_intra_prediction_modes"
+contains the images below.
+<img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" width="33%" />
+<img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" width="33%" />
+<img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" width="33%" />
+From left to right: luminance channel of the first frame of Kimono, map of intra prediction modes given by HEVC,
+and map of intra prediction modes given by HEVC including the neural networks. The Quantization Parameter (QP) of
+encoding is 32.
 
 ## Citing
 ```

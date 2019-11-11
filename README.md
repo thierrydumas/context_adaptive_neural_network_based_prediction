@@ -109,15 +109,15 @@ prefix of the name of this YUV sequence, e.g. "D_BasketballPass".
 python comparing_maps_modes.py ycbcr path/to/dir_data prefix
 ```
 <figure>
-    <figure>
+    <figure width="33%">
         <img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" />
          <figcaption>(a)</figcaption>
     </figure>
-    <figure>
+    <figure width="33%">
         <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" />
          <figcaption>(b)</figcaption>
     </figure>
-    <figure>
+    <figure width="33%">
         <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" />
          <figcaption>(c)</figcaption>
     </figure>

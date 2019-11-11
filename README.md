@@ -39,10 +39,10 @@ cd context_adaptive_neural_network_based_prediction
    ```sh
    python creating_kodak.py
    ```
-2. Creation of the BSDS test set containing 100 YCbCr images. Below, `/path/to/dir_0` is the
-   path to the directory storing the archive of the BSDS dataset the script `creating_bsds.py`
+2. Creation of the BSDS test set containing 100 YCbCr images. Below, "/path/to/dir_0" is the
+   path to the directory storing the archive of the BSDS dataset the script "creating_bsds.py"
    downloads from [BSDSWebPage](https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/).
-   `/path/to/dir_1` is the path to the directory storing the RGB images extracted from this downloaded
+   "/path/to/dir_1" is the path to the directory storing the RGB images extracted from this downloaded
    archive.
    ```sh
    python creating_bsds.py /path/to/dir_1 --path_to_directory_tar=/path/to/dir_0
@@ -59,10 +59,10 @@ cd context_adaptive_neural_network_based_prediction
    ```sh
    python freezing_graph_pnn.py --all
    ```
-5. Reproducing the results in Tables IX and X. Below, `/path/to/dir_data` is the path
+5. Reproducing the results in Tables IX and X. Below, "/path/to/dir_data" is the path
    to the directory storing the YUV sequence whose first frame is encoded and decoded
    via  HEVC/H.265 and two variants of HEVC/H.265 using the neural networks for intra
-   predicton. `prefix` is the prefix of the name of this YUV sequence, e.g. "D_BasketballPass",
+   predicton. "prefix" is the prefix of the name of this YUV sequence, e.g. "D_BasketballPass",
    "B_Kimono", "C_BasketballDrill" (CTC), "Bus" or "City" (xiph.org), see [XiphWebPage](https://media.xiph.org/video/derf/).
    ```sh
    python comparing_rate_distortion.py ycbcr --path_to_directory_data=/path/to/dir_data --prefix_filename=prefix
@@ -94,20 +94,36 @@ are stored in the directory at "hevc/visualization/rate_distortion/".
    ```sh
    python training_pnn.py path/to/dir_2 8 0 1.0 0.0 , 0 --is_fully_connected
    ```
-   Please, see the complete documentation of `training_pnn.py` to understand its arguments.
+   Please, see the complete documentation of "training_pnn.py" to understand its arguments.
 
 ## Visualizations
 For a given luminance image, the command below creates the map of intra prediction modes
 of HEVC and the maps of intra prediction modes of the two versions of HEVC including the
 neural networks. The map of intra prediction modes of a luminance image corresponds to
 the image quadtree partitioning, each luminance Transform Block (TB) being colored depending
-on the intra prediction mode applied to it. Below `path/to/dir_data` is the path to the
-directory storing the YUV sequence whose first frame is encoded and decoded via  HEVC/H.265
-and two variants of HEVC/H.265 using the neural networks for intra predicton. `prefix` is
-the prefix of the name of this YUV sequence, e.g. "D_BasketballPass".
+on the intra prediction mode applied to it. Below "path/to/dir_data" is the path to the
+directory storing the YUV sequence whose first frame is encoded via  HEVC/H.265 and two
+variants of HEVC/H.265 using the neural networks for intra predicton. "prefix" is the
+prefix of the name of this YUV sequence, e.g. "D_BasketballPass".
 ```sh
 python comparing_maps_modes.py ycbcr path/to/dir_data prefix
 ```
+<table>
+    <tbody>
+        <tr>
+            <td><img src="hevc/visualization/maps_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" /></td>
+            <td><img src="hevc/visualization/maps_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" /></td>
+            <td><img src="hevc/visualization/maps_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" /></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Luminance image of the first frame of Kimono</td>
+            <td>Map modes of HEVC</td>
+            <td>Map modes of HEVC including the neural networks</td>
+        </tr>
+    </tfoot>
+</table>
 
 ## Citing
 ```

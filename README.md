@@ -109,16 +109,16 @@ prefix of the name of this YUV sequence, e.g. "D_BasketballPass".
 python comparing_maps_modes.py ycbcr path/to/dir_data prefix
 ```
 <figure>
-    <figure width="33%">
-        <img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" />
+    <figure>
+        <img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" width="33%" />
          <figcaption>(a)</figcaption>
     </figure>
-    <figure width="33%">
-        <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" />
+    <figure>
+        <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" width="33%" />
          <figcaption>(b)</figcaption>
     </figure>
-    <figure width="33%">
-        <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" />
+    <figure>
+        <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" width="33%" />
          <figcaption>(c)</figcaption>
     </figure>
     <figcaption>Maps of intra prediction modes: (a) luminance channel of the first frame of Kimono (1920x1080), (b)

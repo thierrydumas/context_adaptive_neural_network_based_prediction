@@ -111,9 +111,9 @@ python comparing_maps_modes.py ycbcr path/to/dir_data prefix
 <table>
     <tbody>
         <tr>
-            <td><img src="hevc/visualization/maps_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" /></td>
-            <td><img src="hevc/visualization/maps_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" /></td>
-            <td><img src="hevc/visualization/maps_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" /></td>
+            <td><img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" /></td>
+            <td><img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular" /></td>
+            <td><img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch" /></td>
         </tr>
     </tbody>
     <tfoot>

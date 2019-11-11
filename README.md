@@ -123,7 +123,7 @@ src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_cactus
 width="33%" /> <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_cactus_hevc_switch.png" alt="map_modes_hevc_switch_cactus"
 width="33%" />
 
-<img src="hevc/visualization/map_intra_prediction_modes/readme/legend.png" alt="legend" width="42%" />
+<img src="hevc/visualization/map_intra_prediction_modes/readme/legend.png" alt="legend" width="45%" />
 
 From left to right: luminance channel of the first frame of the video sequence, map of intra prediction modes given
 by HEVC, and map of intra prediction modes given by HEVC including the neural networks. The Quantization Parameter

@@ -112,10 +112,12 @@ python comparing_maps_modes.py ycbcr path/to/dir_data prefix
 For instance, when "prefix" is "B_Kimono", the directory at "hevc/visualization/map_intra_prediction_modes"
 contains the images below.
 
-<img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" width="31%" /> <img
+<img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" width="33%" /> <img
 src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular"
-width="31%" /> <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch"
-width="31%" />
+width="33%" /> <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch"
+width="33%" />
+
+<img src="hevc/visualization/map_intra_prediction_modes/readme/legend.png" alt="legend" width="36%" />
 
 From left to right: luminance channel of the first frame of Kimono, map of intra prediction modes given by HEVC,
 and map of intra prediction modes given by HEVC including the neural networks. The Quantization Parameter (QP) of

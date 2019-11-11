@@ -118,7 +118,7 @@ src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono
 width="33%" /> <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch_kimono"
 width="33%" />
 
-<img src="hevc/visualization/map_intra_prediction_modes/readme/cactus_kimono.png" alt="luminance_cactus" width="33%" /> <img
+<img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_cactus.png" alt="luminance_cactus" width="33%" /> <img
 src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_cactus_hevc_regular.png" alt="map_modes_hevc_regular_cactus"
 width="33%" /> <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_cactus_hevc_switch.png" alt="map_modes_hevc_switch_cactus"
 width="33%" />

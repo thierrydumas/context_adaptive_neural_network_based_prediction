@@ -117,7 +117,7 @@ src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono
 width="33%" /> <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_switch.png" alt="map_modes_hevc_switch"
 width="33%" />
 
-<img src="hevc/visualization/map_intra_prediction_modes/readme/legend.png" alt="legend" width="36%" />
+<img src="hevc/visualization/map_intra_prediction_modes/readme/legend.png" alt="legend" width="42%" />
 
 From left to right: luminance channel of the first frame of Kimono, map of intra prediction modes given by HEVC,
 and map of intra prediction modes given by HEVC including the neural networks. The Quantization Parameter (QP) of

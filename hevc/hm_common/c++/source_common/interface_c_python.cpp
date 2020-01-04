@@ -18,12 +18,23 @@ int append_sys_path(const std::string& path_to_additional_directory)
     python_path_sys = PySys_GetObject(const_cast<char*>(string_path.c_str()));
     if (!python_path_sys)
     {
-        fprintf(stderr, "`PySys_GetObject` fails.\n");
+        fprintf(stderr,
+                "`PySys_GetObject` fails.\n");
         return -1;
     }
+    std::string name_function_conversion_string("");
     
-    // `PyString_FromString` returns a new reference.
+    /*
+    `PyString_FromString` and `PyUnicode_FromString` return a
+    new reference.
+    */
+#if PY_MAJOR_VERSION <= 2
     python_path_to_additional_directory = PyString_FromString(path_to_additional_directory.c_str());
+    name_function_conversion_string = "PyString_FromString";
+#else
+    python_path_to_additional_directory = PyUnicode_FromString(path_to_additional_directory.c_str());
+    name_function_conversion_string = "PyUnicode_FromString";
+#endif
     if (!python_path_to_additional_directory)
     {
         if (PyErr_Occurred())
@@ -32,7 +43,9 @@ int append_sys_path(const std::string& path_to_additional_directory)
         }
         else
         {
-            fprintf(stderr, "`PyString_FromString` fails but the error indicator is not set.\n");
+            fprintf(stderr,
+                    "`%s` fails but the error indicator is not set.\n",
+                    name_function_conversion_string.c_str());
         }
         return -1;
     }
@@ -53,7 +66,8 @@ int append_sys_path(const std::string& path_to_additional_directory)
         }
         else
         {
-            fprintf(stderr, "`PyList_Insert` fails but the error indicator is not set.\n");
+            fprintf(stderr,
+                    "`PyList_Insert` fails but the error indicator is not set.\n");
         }
         return -1;
     }
@@ -70,9 +84,19 @@ PyObject* get_callable(const std::string& name_file,
     PyObject* python_name_file(NULL);
     PyObject* python_module(NULL);
     PyObject* python_function(NULL);
+    std::string name_function_conversion_string("");
     
-    // `PyString_FromString` returns a new reference.
+    /*
+    `PyString_FromString` and `PyUnicode_FromString` return a
+    new reference.
+    */
+#if PY_MAJOR_VERSION <= 2
     python_name_file = PyString_FromString(name_file.c_str());
+    name_function_conversion_string = "PyString_FromString";
+#else
+    python_name_file = PyUnicode_FromString(name_file.c_str());
+    name_function_conversion_string = "PyUnicode_FromString";
+#endif
     if (!python_name_file)
     {
         if (PyErr_Occurred())
@@ -81,7 +105,9 @@ PyObject* get_callable(const std::string& name_file,
         }
         else
         {
-            fprintf(stderr, "`PyString_FromString` fails but the error indicator is not set.\n");
+            fprintf(stderr,
+                    "`%s` fails but the error indicator is not set.\n",
+                    name_function_conversion_string.c_str());
         }
         return NULL;
     }
@@ -97,7 +123,8 @@ PyObject* get_callable(const std::string& name_file,
         }
         else
         {
-            fprintf(stderr, "`PyImport_Import` fails but the error indicator is not set.\n");
+            fprintf(stderr,
+                    "`PyImport_Import` fails but the error indicator is not set.\n");
         }
         return NULL;
     }
@@ -113,7 +140,8 @@ PyObject* get_callable(const std::string& name_file,
         }
         else
         {
-            fprintf(stderr, "`PyObject_GetAttrString` fails but the error indicator is not set.\n");
+            fprintf(stderr,
+                    "`PyObject_GetAttrString` fails but the error indicator is not set.\n");
         }
         return NULL;
     }
@@ -126,7 +154,8 @@ PyObject* get_callable(const std::string& name_file,
     const int error_code(PyCallable_Check(python_function));
     if (!error_code)
     {
-        fprintf(stderr, "The object is not callable.\n");
+        fprintf(stderr,
+                "The object is not callable.\n");
         Py_DECREF(python_function);
         return NULL;
     }
@@ -145,12 +174,23 @@ PyObject* load_via_pickle(PyObject* python_function,
     
     if (!python_function)
     {
-        fprintf(stderr, "`python_function` is NULL.\n");
+        fprintf(stderr,
+                "`python_function` is NULL.\n");
         return NULL;
     }
+    std::string name_function_conversion_string("");
     
-    // `PyString_FromString` returns a new reference.
+    /*
+    `PyString_FromString` and `PyUnicode_FromString` return a
+    new reference.
+    */
+#if PY_MAJOR_VERSION <= 2
     python_path_to_file = PyString_FromString(path_to_file.c_str());
+    name_function_conversion_string = "PyString_FromString";
+#else
+    python_path_to_file = PyUnicode_FromString(path_to_file.c_str());
+    name_function_conversion_string = "PyUnicode_FromString";
+#endif
     if (!python_path_to_file)
     {
         if (PyErr_Occurred())
@@ -159,7 +199,9 @@ PyObject* load_via_pickle(PyObject* python_function,
         }
         else
         {
-            fprintf(stderr, "`PyString_FromString` fails but the error indicator is not set.\n");
+            fprintf(stderr,
+                    "`%s` fails but the error indicator is not set.\n",
+                    name_function_conversion_string.c_str());
         }
         return NULL;
     }
@@ -179,7 +221,8 @@ PyObject* load_via_pickle(PyObject* python_function,
         }
         else
         {
-            fprintf(stderr, "`PyObject_CallFunctionObjArgs` fails but the error indicator is not set.\n");
+            fprintf(stderr,
+                    "`PyObject_CallFunctionObjArgs` fails but the error indicator is not set.\n");
         }
         return NULL;
     }

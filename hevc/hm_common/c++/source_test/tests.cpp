@@ -64,7 +64,11 @@ int test_append_sys_path(const std::string& path_to_additional_directory)
         If `python_item` is not a string object at all,
         `PyString_AsString` returns NULL and raises `TypeError`.
         */
+#if PY_MAJOR_VERSION <= 2
         ptr_message_portion = PyString_AsString(python_item);
+#else
+        ptr_message_portion = PyUnicode_AsUTF8(python_item);
+#endif
         if (!ptr_message_portion)
         {
             if (PyErr_Occurred())
@@ -851,14 +855,24 @@ int test_load_via_pickle(const std::string& path_to_additional_directory)
     {
         return -1;
     }
-    const bool error_bool(PyInt_CheckExact(python_loaded_object));
+    bool error_bool(false);
+#if PY_MAJOR_VERSION <= 2
+    error_bool = PyInt_CheckExact(python_loaded_object);
+#else
+    error_bool = PyLong_CheckExact(python_loaded_object);
+#endif
     if (!error_bool)
     {
         fprintf(stderr, "`python_loaded_object` does not points to a Python object of type `PyInt_Type`.\n");
         Py_DECREF(python_loaded_object);
         return -1;
     }
-    const long output_long(PyInt_AsLong(python_loaded_object));
+    long output_long(0);
+#if PY_MAJOR_VERSION <= 2
+    output_long = PyInt_AsLong(python_loaded_object);
+#else
+    output_long = PyLong_AsLong(python_loaded_object);
+#endif
     Py_DECREF(python_loaded_object);
     
     /*

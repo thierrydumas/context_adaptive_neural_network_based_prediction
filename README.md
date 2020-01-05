@@ -111,7 +111,7 @@ python comparing_maps_modes.py ycbcr path/to/dir_data prefix
 
 For instance, when "prefix" is "B_Kimono", the directory at "hevc/visualization/map_intra_prediction_modes"
 contains the first row of images below. When "prefix" is "B_Cactus", this directory contains the second row
-of images below.
+of images below. When "prefix" is "B_ParkScene", this directory contains the third row of images below.
 
 <img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_kimono.png" alt="luminance_kimono" width="33%" /> <img
 src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_kimono_hevc_regular.png" alt="map_modes_hevc_regular_kimono"
@@ -121,6 +121,11 @@ width="33%" />
 <img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_cactus.png" alt="luminance_cactus" width="33%" /> <img
 src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_cactus_hevc_regular.png" alt="map_modes_hevc_regular_cactus"
 width="33%" /> <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_cactus_hevc_switch.png" alt="map_modes_hevc_switch_cactus"
+width="33%" />
+
+<img src="hevc/visualization/map_intra_prediction_modes/readme/luminance_parkscene.png" alt="luminance_parkscene" width="33%" /> <img
+src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_parkscene_hevc_regular.png" alt="map_modes_hevc_regular_parkscene"
+width="33%" /> <img src="hevc/visualization/map_intra_prediction_modes/readme/map_modes_qp_32_parkscene_hevc_switch.png" alt="map_modes_hevc_switch_parkscene"
 width="33%" />
 
 <img src="hevc/visualization/map_intra_prediction_modes/readme/legend.png" alt="legend" width="45%" />

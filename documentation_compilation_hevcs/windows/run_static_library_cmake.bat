@@ -3,7 +3,7 @@ setlocal
 set PROJECT_ROOT=%cd%
 
 REM The compiler environment is set.
-REM Please, modify the first line below depending on your system.
+REM The path in the first line below should be modified depending on the system.
 cd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build"
 call vcvarsall.bat amd64
 

@@ -24,8 +24,8 @@ Tensorflow 1.9.0. To avoid modifying paths later on when linking the built stati
 Tensorflow libraries to HEVC executables, it is recommended to put the Tensorflow
 repository into the directory containing the root directory of the current project
 named "context_adaptive_neural_network_based_prediction".
-2. Make sure that the CMake executable and the Visual Studio executable
-named "msbuild.exe" are in your %PATH%.
+2. Make sure that the path to the directory containing the CMake executable and the path
+to the directory containing the Visual Studio executable named "msbuild.exe" are in your %PATH%.
 3. Put the files "run_static_library_cmake.bat" and "run_static_library_build.bat"
 into the root directory of the Tensorflow repository.
 4. Follow the instructions in the file "note_modifications_cmake.txt" to change

@@ -2,10 +2,6 @@
 setlocal
 set PROJECT_ROOT=%cd%
 
-REM The Tensorflow repository is updated.
-cd %PROJECT_ROOT%
-git submodule update --init
-
 REM The compiler environment is set.
 cd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build"
 call vcvarsall.bat amd64
